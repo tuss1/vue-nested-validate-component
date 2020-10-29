@@ -1,32 +1,23 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+      Тестовое задание Vue.js
+
+Необходимо реализовать компонент с методом validate.
+Компонент может быть вложен сам в себя.
+
+При вызове метода validate, необходимо что - бы компонент вызывал данный метод у своих непосредственных детей.
+
+Схематично:
+
+<pre v-text="vtext"></pre>
+
+Вызов метода validate у компонента 1 должен вызвать данный метод у компонентов 2,3,5.
+Вызов метода у компонента 3 должен вызвать метод у компонента 4.
+
+Вложенность компонентов может быть неограничена.
+
     </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
   </div>
 </template>
 
@@ -35,6 +26,22 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      vtext: `
+<!-- 1 -->  <validate-component>
+              <some-component>
+    <!-- 2 -->  <validate-component></validate-component>
+              </some-component>
+              <some-component>
+    <!-- 3 -->  <validate-component>
+      <!-- 4 -->  <validate-component/>
+                </validate-component>
+              </some-component>
+<!-- 5 -->  <validate-component></validate-component>
+            </validate-component>`,
+    };
   }
 }
 </script>
